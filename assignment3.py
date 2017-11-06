@@ -1,3 +1,6 @@
+
+########## Text analysis and Sentiment by Theresia Susanto & Josephine Boenawan ###########
+# WARNING: running this program takes around 2 minutes and 45 seconds.
 import urllib.request
 import string
 import math
@@ -23,9 +26,9 @@ def url_text(url):
 
 def process_file(text, skip_header):
     """
-    text: string
+    text: string 
     skip_header: boolean, whether to skip the Gutenberg header
-    returns: dictionary from each word to the number of times it appears.
+    returns: dictionary from each word to the number of times it appears
     """
     dic = {}
 
@@ -68,7 +71,7 @@ def skip_gutenberg_header_and_tail(text):
 def remove_stopwords(text):
     """Removes stopwords defined by nltk program
     text = open file object
-    returns a filtered string without stopwords
+    returns a filtered list without stopwords
     """
     stop_words = set(stopwords.words('english'))
 
@@ -87,19 +90,35 @@ def sentiment_analysis(text):
     
 
 def freq_of_words_in_order(dic):
-    """ returns a 
+    """ returns a tuple of list of words in order of highest frequency
+    dic = dictionary of words without stopwords
     """
     frequency = dic.values()
     words = dic.keys()
     return sorted(list(zip(frequency,words)), reverse=True)
 
-def print_top_50(dic):
+def print_top_50(dic, title):
+    """ 
+    title = made specifically for Dicken's books. Prints out the Title.
+    dic = dictionary of words without stopwords
+    """
     tup_word = freq_of_words_in_order(dic)
+    if title == "TalesDat": 
+        print(" A Tale of Two Cities")
+    elif title == "GreatExpDat":
+        print("\n Great Expectations")
+    elif title == "OliverDat":
+        print("\n Oliver Twist")
     print("Word","\t","Frequency")
     for i in range(0,50):
         print("{0:10}    {1}".format(tup_word[i][1], tup_word[i][0]))
 
 def innerProduct(dictA, dictB):
+    """
+    dictA = histogram of the first text
+    dictB = histogram of the second text
+    returns the dot product of the two texts. 
+    """
     num = 0
     for word in dictA:
         if word in dictB:
@@ -107,37 +126,43 @@ def innerProduct(dictA, dictB):
     return num
 
 def docDist(dictA, dictB):
+    """
+    dictA = histogram of the first text
+    dictB = histogram of the second text
+    returns the distance between the two vectors in percentage
+    """
     num = innerProduct(dictA, dictB)
     denom = math.sqrt(innerProduct(dictA,dictB)*innerProduct(dictB,dictB))
     return (math.acos(num/denom))/(math.pi/2)*100
 
 def main():
-    # #print(skip_gutenberg_header_and_tail(txt))
     txt = url_text(tale_of_two_cities)
     txt1 = url_text(great_expectations)
     txt2 = url_text(oliver_twist)
     TalesDat = process_file(txt, skip_header=True)
-    print_top_50(TalesDat)
-    # #print(myDict)
-    # tup_freq = freq_of_words_in_order(myDict)
-    # #print(score)
+
     no_stopwords = ' '.join(remove_stopwords(skip_gutenberg_header_and_tail(txt)))
-    # #print(no_stopwords)
+    
     TaleofTwoCities = sentiment_analysis(no_stopwords)
     GreatExpDat = process_file(txt1, skip_header=True)
     OliverDat = process_file(txt2, skip_header=True)
-    # print(freq_of_words_in_order(TalesDat))
-    print ("The difference between A Tale of Two Cities and Great Expectations is {:.2f}%".format(docDist(TalesDat,GreatExpDat)))
-    print ("The difference between A Tale of Two Cities and Oliver Twist is {:.2f}%".format(docDist(TalesDat, OliverDat)))
-    print ("The difference between Oliver Twist and Great Expectations is {:.2f}%".format(docDist(OliverDat,GreatExpDat)))
+     
     no_stopwords = ' '.join(remove_stopwords(skip_gutenberg_header_and_tail(txt1)))
     GreatExpectations = sentiment_analysis(no_stopwords)
     no_stopwords = ' '.join(remove_stopwords(skip_gutenberg_header_and_tail(txt2)))
     OliverTwist = sentiment_analysis(no_stopwords)
     
+    print_top_50(TalesDat, "TalesDat")
     print("Sentiment analysis of Tale of Two Cities is",TaleofTwoCities)
+    print_top_50(GreatExpDat, "GreatExpDat")
     print("Sentiment analysis of Great Expectations is",GreatExpectations)
+    print_top_50(OliverDat, "OliverDat")
     print("Sentiment analysis of Oliver Twist is",OliverTwist)
+    print("------------------------------------")
+    
+    print ("The difference between A Tale of Two Cities and Great Expectations is {:.2f}%".format(docDist(TalesDat,GreatExpDat)))
+    print ("The difference between A Tale of Two Cities and Oliver Twist is {:.2f}%".format(docDist(TalesDat, OliverDat)))
+    print ("The difference between Oliver Twist and Great Expectations is {:.2f}%".format(docDist(OliverDat,GreatExpDat)))
 
     
 
