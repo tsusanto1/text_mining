@@ -31,8 +31,6 @@ def process_file(text, skip_header):
     returns: dictionary from each word to the number of times it appears
     """
     dic = {}
-
-
     #text = text.lower()
     if skip_header:
         text = skip_gutenberg_header_and_tail(text)
@@ -82,6 +80,9 @@ def remove_stopwords(text):
  
     return filtered_sentence
 
+
+
+
 def sentiment_analysis(text):
     """ Returns sentiment analysis score 
     text = string of processed text
@@ -98,6 +99,8 @@ def freq_of_words_in_order(dic):
     words = dic.keys()
     return sorted(list(zip(frequency,words)), reverse=True)
 
+
+
 def print_top_50(dic, title):
     """ 
     title = made specifically for Dicken's books. Prints out the Title.
@@ -113,6 +116,9 @@ def print_top_50(dic, title):
     print("Word","\t","Frequency")
     for i in range(0,50):
         print("{0:10}    {1}".format(tup_word[i][1], tup_word[i][0]))
+
+
+
 
 def innerProduct(dictA, dictB):
     """
@@ -135,6 +141,9 @@ def docDist(dictA, dictB):
     num = innerProduct(dictA, dictB)
     denom = math.sqrt(innerProduct(dictA,dictB)*innerProduct(dictB,dictB))
     return (math.acos(num/denom))/(math.pi/2)*100
+
+
+
 
 def main():
     txt = url_text(tale_of_two_cities)
