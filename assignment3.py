@@ -1,6 +1,5 @@
 import urllib.request
 import string
-from math import sqrt, acos
 import math
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from nltk.corpus import stopwords
@@ -80,6 +79,12 @@ def freq_of_words_in_order(dic):
     words = dic.keys()
     return sorted(list(zip(frequency,words)), reverse=True)
 
+def print_top_50(dic):
+    tup_word = freq_of_words_in_order(dic)
+    print("Word","\t","Frequency")
+    for i in range(0,50):
+        print("{0:10}    {1}".format(tup_word[i][1], tup_word[i][0]))
+
 def innerProduct(dictA, dictB):
     num = 0
     for word in dictA:
@@ -89,8 +94,8 @@ def innerProduct(dictA, dictB):
 
 def docDist(dictA, dictB):
     num = innerProduct(dictA, dictB)
-    denom = sqrt(innerProduct(dictA,dictB)*innerProduct(dictB,dictB))
-    return (acos(num/denom))/(math.pi/2)*100
+    denom = math.sqrt(innerProduct(dictA,dictB)*innerProduct(dictB,dictB))
+    return (math.acos(num/denom))/(math.pi/2)*100
 
 def main():
     # #print(skip_gutenberg_header_and_tail(txt))
@@ -98,6 +103,7 @@ def main():
     txt1 = url_text(great_expectations)
     txt2 = url_text(oliver_twist)
     TalesDat = process_file(txt, skip_header=True)
+    print_top_50(TalesDat)
     # #print(myDict)
     # tup_freq = freq_of_words_in_order(myDict)
     # #print(score)
