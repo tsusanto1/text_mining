@@ -16,7 +16,7 @@ oliver_twist = 'http://www.gutenberg.org/cache/epub/730/pg730.txt'
 def url_text(url):
     """ Downloads and reads the text
     url = link to the text file
-    returns a string of text
+    returns a ing of text
     """
     response = urllib.request.urlopen(url)
     data = response.read()  # a `bytes` object
