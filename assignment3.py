@@ -14,7 +14,7 @@ great_expectations = 'http://www.gutenberg.org/files/1400/1400-0.txt'
 oliver_twist = 'http://www.gutenberg.org/cache/epub/730/pg730.txt'
 
 def url_text(url):
-    """ Downloads and reads the text
+    """ Download and reads the text
     url = link to the text file
     returns a ing of text
     """
