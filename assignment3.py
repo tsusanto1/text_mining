@@ -21,11 +21,7 @@ def url_text(url):
 #print(text) # for testing
 
 def process_file(text, skip_header):
-    """Makes a histogram that contains the words from a file.
-    filename: string
-    skip_header: boolean, whether to skip the Gutenberg header
-    returns: map from each word to the number of times it appears.
-    """
+    """hello"""
     dic = {}
 
 
