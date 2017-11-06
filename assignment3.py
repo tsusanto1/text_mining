@@ -16,7 +16,7 @@ oliver_twist = 'http://www.gutenberg.org/cache/epub/730/pg730.txt'
 def url_text(url):
     """ Download and reads the text
     url = link to the text file
-    returns a ing of text
+    returns a string of text
     """
     response = urllib.request.urlopen(url)
     data = response.read()  # a `bytes` object
@@ -73,7 +73,8 @@ def remove_stopwords(text):
     text = open file object
     returns a filtered list without stopwords
     """
-    stop_words = set(stopwords.words('english'))
+    operators = (['would','could','miss','mr','i','said'])
+    stop_words = set(stopwords.words('english')+operators)
 
     word_tokens = word_tokenize(text)
  
