@@ -25,11 +25,15 @@ def url_text(url):
 #print(text) # for testing
 
 def process_file(text, skip_header):
+<<<<<<< HEAD
     """
     text: string 
     skip_header: boolean, whether to skip the Gutenberg header
     returns: dictionary from each word to the number of times it appears
     """
+=======
+    """hi"""
+>>>>>>> 2a5aae2e11de13b675b2a779ab42476382218b71
     dic = {}
 
 
@@ -98,10 +102,13 @@ def freq_of_words_in_order(dic):
     return sorted(list(zip(frequency,words)), reverse=True)
 
 def print_top_50(dic, title):
+<<<<<<< HEAD
     """ 
     title = made specifically for Dicken's books. Prints out the Title.
     dic = dictionary of words without stopwords
     """
+=======
+>>>>>>> 2a5aae2e11de13b675b2a779ab42476382218b71
     tup_word = freq_of_words_in_order(dic)
     if title == "TalesDat": 
         print(" A Tale of Two Cities")
