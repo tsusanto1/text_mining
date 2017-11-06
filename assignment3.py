@@ -12,6 +12,10 @@ great_expectations = 'http://www.gutenberg.org/files/1400/1400-0.txt'
 oliver_twist = 'http://www.gutenberg.org/cache/epub/730/pg730.txt'
 
 def url_text(url):
+    """ Downloads and reads the text
+    url = link to the text file
+    returns a string of text
+    """
     response = urllib.request.urlopen(url)
     data = response.read()  # a `bytes` object
     text = data.decode('utf-8')
@@ -19,10 +23,10 @@ def url_text(url):
 #print(text) # for testing
 
 def process_file(text, skip_header):
-    """Makes a histogram that contains the words from a file.
-    filename: string
+    """
+    text: string
     skip_header: boolean, whether to skip the Gutenberg header
-    returns: map from each word to the number of times it appears.
+    returns: dictionary from each word to the number of times it appears.
     """
     dic = {}
 
@@ -51,8 +55,9 @@ def process_file(text, skip_header):
     return dic
 
 def skip_gutenberg_header_and_tail(text):
-    """Reads from text until it finds the line that ends the header.
-   text: open file object
+    """Reads from text until it finds the start and end of processed text.
+    text: open file object
+    Returns a string of text without the header and tail. 
     """
     start = 'Chapter XV     The Footsteps Die Out For Ever'
     i = text.find(start)
@@ -62,6 +67,10 @@ def skip_gutenberg_header_and_tail(text):
     return text[i+len(start):j]
 
 def remove_stopwords(text):
+    """Removes stopwords defined by nltk program
+    text = open file object
+    returns a filtered string without stopwords
+    """
     stop_words = set(stopwords.words('english'))
 
     word_tokens = word_tokenize(text)
@@ -71,11 +80,16 @@ def remove_stopwords(text):
     return filtered_sentence
 
 def sentiment_analysis(text):
+    """ Returns sentiment analysis score 
+    text = string of processed text
+    """
     return SentimentIntensityAnalyzer().polarity_scores(skip_gutenberg_header_and_tail(text))
     
     
 
 def freq_of_words_in_order(dic):
+    """ returns a 
+    """
     frequency = dic.values()
     words = dic.keys()
     return sorted(list(zip(frequency,words)), reverse=True)
